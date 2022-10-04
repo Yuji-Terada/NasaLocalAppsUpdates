@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang = "ja">
+    <head>
+        <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+        
+
+        <script src = "//unpkg.com/globe.gl"></script>
+        <script src = "./globeTwo.gl.min.js"></script>
+        <link rel = "stylesheet" type = "text/css" href = "ToinTeam.css">
+    </head>
+
+    <body style = "font-family: Bahnschrift, Microsoft JhengHei Thin;">
+        <!--2つの地球-->
+        <div class = "container">
+            <div id = "globeViz"></div>
+            <div id = "globeViz2"></div>
+            <!--2Dの地図データ表示-->
+            <div id = "map">
+                <img id = "twodmap" src = "0.jpg">
+            </div>
+        </div>
+
+        <!--上部ナビタブ-->
+        <div class = "uppernav">
+            <ul class = "tabnav">
+                <li class = "uppernavcomponent"><a href = #>查看历史</a></li>
+                <li class = "uppernavcomponent"><a href="#">保存所选数据</a></li>
+                <li class = "uppernavcomponent"><a href="#">输出为图像</a></li>
+                <li class = "uppernavcomponent"><a href="#">去旅游</a></li>
+                <li class = "uppernavcomponent"><a href="#">创建行程</a></li>
+                <li class = "uppernavcomponent" style = "font-size: 0.9vw; margin:0;"><a href="ToinTeam.html">English</a></li>
+            </ul>
+        </div>
+
+        <!--ナビゲーションボタン-->
+        <div class = "openbtn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav id = "g-nav">
+            <p id = "layers" style = "font-size: 3vh;">　←　左地球　<strong style = "font-size: 5vh;">数据选择</strong>　右地球　→　</p>
+            <div id = "g-nav-list">
+                <!--データ選択-->
+                <form name = "images" id = "form">
+                    <input type = "radio" name = image value = "33" style = "font-size : 1vw" checked> 地球：下一代<br>
+                    <input type = "radio" name = image value = "0" style = "font-size : 1vw"> 气溶胶光学厚度<br>
+                    <input type = "radio" name = image value = "1" style = "font-size : 1vw"> 气溶胶粒径<br>
+                    <input type = "radio" name = image value = "2" style = "font-size : 1vw"> 一氧化碳的量(CO)<br>
+                    <input type = "radio" name = image value = "3" style = "font-size : 1vw"> 云量覆盖率<br>
+                    <input type = "radio" name = image value = "4" style = "font-size : 1vw"> 云的光学厚度<br>
+                    <input type = "radio" name = image value = "5" style = "font-size : 1vw"> 云粒径<br>
+                    <input type = "radio" name = image value = "6" style = "font-size : 1vw"> 云的含水量<br>
+                    <input type = "radio" name = image value = "7" style = "font-size : 1vw"> 假色 (MODIS)<br>
+                    <input type = "radio" name = image value = "8" style = "font-size : 1vw"> 二氧化氮(NO2)<br>
+                    <input type = "radio" name = image value = "9" style = "font-size : 1vw"> 臭氧层量<br>
+                    <input type = "radio" name = image value = "10" style = "font-size : 1vw"> 降水量<br>
+                    <input type = "radio" name = image value = "11" style = "font-size : 1vw"> 本色 (MODIS)<br>
+                    <input type = "radio" name = image value = "12" style = "font-size : 1vw"> 本色 (VIIRS)<br>
+                    <input type = "radio" name = image value = "13" style = "font-size : 1vw"> 水蒸气量<br>
+                    <input type = "radio" name = image value = "14" style = "font-size : 1vw"> 入射光与反射光之比 (アルベド)<br>
+                    <input type = "radio" name = image value = "15" style = "font-size : 1vw"> 平均地表温度 (白天) <br>
+                    <input type = "radio" name = image value = "16" style = "font-size : 1vw"> 平均表面温度 (夜晚)<br>
+                    <input type = "radio" name = image value = "17" style = "font-size : 1vw"> 平均表面温度 (AVHRR, '85-'97)<br>
+                    <input type = "radio" name = image value = "18" style = "font-size : 1vw"> 全球气温异常<br>
+                    <input type = "radio" name = image value = "19" style = "font-size : 1vw"> 地表温度异常 (白天)<br>
+                    <input type = "radio" name = image value = "20" style = "font-size : 1vw"> 地表温度异常 (夜間)<br>
+                    <input type = "radio" name = image value = "21" style = "font-size : 1vw"> 地表面温度 (昼間)<br>
+                    <input type = "radio" name = image value = "22" style = "font-size : 1vw"> 地表面温度 (夜晚)<br>
+                    <input type = "radio" name = image value = "23" style = "font-size : 1vw"> 净辐射剂量<br>
+                    <input type = "radio" name = image value = "24" style = "font-size : 1vw"> 前向长波辐射<br>
+                    <input type = "radio" name = image value = "25" style = "font-size : 1vw"> 反射短​​波辐射<br>
+                    <input type = "radio" name = image value = "26" style = "font-size : 1vw"> 海面温度 (AVHRR, '81-'06)<br>
+                    <input type = "radio" name = image value = "27" style = "font-size : 1vw"> 海面温度 (MWOL, '98+)<br>
+                    <input type = "radio" name = image value = "28" style = "font-size : 1vw"> 海面温度 (MODIS, '02+)<br>
+                    <input type = "radio" name = image value = "29" style = "font-size : 1vw"> 海面温度异常 (AMSR-E, '02-'11)<br>
+                    <input type = "radio" name = image value = "30" style = "font-size : 1vw"> 太阳辐射<br>
+                    <input type = "radio" name = image value = "31" style = "font-size : 1vw"> 紫外线指数<br>
+                    <input type = "radio" name = image value = "32" style = "font-size : 1vw"> 火灾进行中<br>
+                    <input type = "radio" name = image value = "34" style = "font-size : 1vw"> 格陵兰/南极洲海拔<br>
+                    <input type = "radio" name = image value = "35" style = "font-size : 1vw"> 土地覆盖分类<br>
+                    <input type = "radio" name = image value = "36" style = "font-size : 1vw"> 叶面积指数<br>
+                    <input type = "radio" name = image value = "37" style = "font-size : 1vw"> 纯初级生产<br>
+                    <input type = "radio" name = image value = "38" style = "font-size : 1vw"> 多年冻土<br>
+                    <input type = "radio" name = image value = "39" style = "font-size : 1vw"> 海冰雪覆盖面积 (北半球)<br>
+                    <input type = "radio" name = image value = "40" style = "font-size : 1vw"> 海冰浓度/积雪 (全球的)<br>
+                    <input type = "radio" name = image value = "41" style = "font-size : 1vw"> 雪量<br>
+                    <input type = "radio" name = image value = "42" style = "font-size : 1vw"> 雪水当量<br>
+                    <input type = "radio" name = image value = "43" style = "font-size : 1vw"> 地形图<br>
+                    <input type = "radio" name = image value = "44" style = "font-size : 1vw"> 植被指数 (NDVI)<br>
+                    <input type = "radio" name = image value = "45" style = "font-size : 1vw"> 水当量异常 ('02-'17)<br>
+                    <input type = "radio" name = image value = "46" style = "font-size : 1vw"> 叶绿素浓度<br>
+                    <input type = "radio" name = image value = "47" style = "font-size : 1vw"> 人口<br>
+                    <input type = "radio" name = image value = "48" style = "font-size : 1vw"> 平均海面温度 (AVHRR, '85-'97)<br>
+                    <input type = "radio" name = image value = "49" style = "font-size : 1vw"> 深度测量<br>
+                    <input type = "radio" name = image value = "50" style = "font-size : 1vw"> 海面盐度 ('11-'15)<br><br><br><br><br><br><br><br><br><br><br>
+                </form>
+                <!--データ選択2-->
+                <form name = "images2" id = "form2">
+                    <input type = "radio" name = image value = "33" style = "font-size : 1vw" checked> 地球：下一代<br>
+                    <input type = "radio" name = image value = "0" style = "font-size : 1vw"> 气溶胶光学厚度<br>
+                    <input type = "radio" name = image value = "1" style = "font-size : 1vw"> 气溶胶粒径<br>
+                    <input type = "radio" name = image value = "2" style = "font-size : 1vw"> 一氧化碳的量(CO)<br>
+                    <input type = "radio" name = image value = "3" style = "font-size : 1vw"> 云量覆盖率<br>
+                    <input type = "radio" name = image value = "4" style = "font-size : 1vw"> 云的光学厚度<br>
+                    <input type = "radio" name = image value = "5" style = "font-size : 1vw"> 云粒径<br>
+                    <input type = "radio" name = image value = "6" style = "font-size : 1vw"> 云的含水量<br>
+                    <input type = "radio" name = image value = "7" style = "font-size : 1vw"> 假色 (MODIS)<br>
+                    <input type = "radio" name = image value = "8" style = "font-size : 1vw"> 二氧化氮(NO2)<br>
+                    <input type = "radio" name = image value = "9" style = "font-size : 1vw"> 臭氧层量<br>
+                    <input type = "radio" name = image value = "10" style = "font-size : 1vw"> 降水量<br>
+                    <input type = "radio" name = image value = "11" style = "font-size : 1vw"> 本色 (MODIS)<br>
+                    <input type = "radio" name = image value = "12" style = "font-size : 1vw"> 本色 (VIIRS)<br>
+                    <input type = "radio" name = image value = "13" style = "font-size : 1vw"> 水蒸气量<br>
+                    <input type = "radio" name = image value = "14" style = "font-size : 1vw"> 入射光与反射光之比 (アルベド)<br>
+                    <input type = "radio" name = image value = "15" style = "font-size : 1vw"> 平均地表温度 (白天) <br>
+                    <input type = "radio" name = image value = "16" style = "font-size : 1vw"> 平均表面温度 (夜晚)<br>
+                    <input type = "radio" name = image value = "17" style = "font-size : 1vw"> 平均表面温度 (AVHRR, '85-'97)<br>
+                    <input type = "radio" name = image value = "18" style = "font-size : 1vw"> 全球气温异常<br>
+                    <input type = "radio" name = image value = "19" style = "font-size : 1vw"> 地表温度异常 (白天)<br>
+                    <input type = "radio" name = image value = "20" style = "font-size : 1vw"> 地表温度异常 (夜間)<br>
+                    <input type = "radio" name = image value = "21" style = "font-size : 1vw"> 地表面温度 (昼間)<br>
+                    <input type = "radio" name = image value = "22" style = "font-size : 1vw"> 地表面温度 (夜晚)<br>
+                    <input type = "radio" name = image value = "23" style = "font-size : 1vw"> 净辐射剂量<br>
+                    <input type = "radio" name = image value = "24" style = "font-size : 1vw"> 前向长波辐射<br>
+                    <input type = "radio" name = image value = "25" style = "font-size : 1vw"> 反射短​​波辐射<br>
+                    <input type = "radio" name = image value = "26" style = "font-size : 1vw"> 海面温度 (AVHRR, '81-'06)<br>
+                    <input type = "radio" name = image value = "27" style = "font-size : 1vw"> 海面温度 (MWOL, '98+)<br>
+                    <input type = "radio" name = image value = "28" style = "font-size : 1vw"> 海面温度 (MODIS, '02+)<br>
+                    <input type = "radio" name = image value = "29" style = "font-size : 1vw"> 海面温度异常 (AMSR-E, '02-'11)<br>
+                    <input type = "radio" name = image value = "30" style = "font-size : 1vw"> 太阳辐射<br>
+                    <input type = "radio" name = image value = "31" style = "font-size : 1vw"> 紫外线指数<br>
+                    <input type = "radio" name = image value = "32" style = "font-size : 1vw"> 火灾进行中<br>
+                    <input type = "radio" name = image value = "34" style = "font-size : 1vw"> 格陵兰/南极洲海拔<br>
+                    <input type = "radio" name = image value = "35" style = "font-size : 1vw"> 土地覆盖分类<br>
+                    <input type = "radio" name = image value = "36" style = "font-size : 1vw"> 叶面积指数<br>
+                    <input type = "radio" name = image value = "37" style = "font-size : 1vw"> 纯初级生产<br>
+                    <input type = "radio" name = image value = "38" style = "font-size : 1vw"> 多年冻土<br>
+                    <input type = "radio" name = image value = "39" style = "font-size : 1vw"> 海冰雪覆盖面积 (北半球)<br>
+                    <input type = "radio" name = image value = "40" style = "font-size : 1vw"> 海冰浓度/积雪 (全球的)<br>
+                    <input type = "radio" name = image value = "41" style = "font-size : 1vw"> 雪量<br>
+                    <input type = "radio" name = image value = "42" style = "font-size : 1vw"> 雪水当量<br>
+                    <input type = "radio" name = image value = "43" style = "font-size : 1vw"> 地形图<br>
+                    <input type = "radio" name = image value = "44" style = "font-size : 1vw"> 植被指数 (NDVI)<br>
+                    <input type = "radio" name = image value = "45" style = "font-size : 1vw"> 水当量异常 ('02-'17)<br>
+                    <input type = "radio" name = image value = "46" style = "font-size : 1vw"> 叶绿素浓度<br>
+                    <input type = "radio" name = image value = "47" style = "font-size : 1vw"> 人口<br>
+                    <input type = "radio" name = image value = "48" style = "font-size : 1vw"> 平均海面温度 (AVHRR, '85-'97)<br>
+                    <input type = "radio" name = image value = "49" style = "font-size : 1vw"> 深度测量<br>
+                    <input type = "radio" name = image value = "50" style = "font-size : 1vw"> 海面盐度 ('11-'15)<br><br><br><br><br><br><br><br><br><br><br>
+                </form>
+            </div>
+        </nav>
+
+        <!--2D/3Dの変更ボタン-->
+        <div class="container-dimention">
+            <form name = "dimention" id = "dimention">
+                <label class = "dimention-type"><input type="radio" name="image" value="2d" id = "2d" style="transform:scale(2.0); margin-left: 2.5vw;"><p>2D MAP</p></input></label>
+                <label class = "dimention-type"><input type="radio" name="image" value="3d" id = "3d" style="transform:scale(2.0); margin-left: 3.5vw;" checked><p>3D GLOBE</p></input></label>
+            </form>
+        </div>
+
+        <!--2つの地球のスクリプト-->
+        <script src = "ToinTeamEarths.js">
+            
+        </script>
+
+        <!--jQueryを使用した滑らかな動きのためのスクリプト-->
+        <script>
+            document.getElementById("download").onclick = (event) => {
+            var canvas = document.querySelector("#globeViz canvas")
+
+            let link = document.createElement("a");
+            link.href = canvas.toDataURL("image/png");
+            link.download = "test.png";
+            link.click()};
+
+        </script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src = "ToinTeamMoving.js"></script>
+    </body>
+</html>
